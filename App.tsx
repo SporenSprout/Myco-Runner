@@ -69,7 +69,7 @@ function Scene() {
 
 function App() {
   return (
-    <div className="relative w-full h-screen bg-black overflow-hidden select-none">
+    <div className="app-root relative w-full bg-black select-none">
       <HUD />
       <Canvas
         shadows
