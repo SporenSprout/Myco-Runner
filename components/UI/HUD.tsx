@@ -12,8 +12,6 @@ import { useStore } from '../../store';
 import { GameStatus, WORD_COLORS, ShopItem, RUN_SPEED_BASE, TARGET_WORD } from '../../types';
 import { audio } from '../System/Audio';
 
-const LOGO_URL = "https://raw.githubusercontent.com/SporenSprout/Myco-Runner/main/35495E8D-93A1-4E69-930C-97F7279C64B4.PNG";
-
 // Custom Mushroom Icon (SVG) to ensure availability
 const MushroomIcon = ({ className, strokeWidth = 2, ...props }: any) => (
     <svg 
@@ -209,8 +207,7 @@ export const HUD: React.FC = () => {
               <div className="relative w-full max-w-md rounded-3xl overflow-hidden shadow-[0_0_50px_rgba(0,255,255,0.2)] border border-white/10 animate-in zoom-in-95 duration-500">
                 
                 {/* Custom Myco Runner Visual */}
-                {/* Reduced top padding here to move logo higher */}
-                <div className="relative w-full aspect-[4/5] bg-gradient-to-b from-indigo-950 via-purple-950 to-black flex flex-col items-center justify-start pt-4 md:pt-8 overflow-hidden">
+                <div className="relative w-full aspect-[4/5] bg-gradient-to-b from-indigo-950 via-purple-950 to-black flex flex-col items-center justify-start pt-6 md:pt-8 overflow-hidden">
                     {/* Ambient Glows */}
                     <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-cyan-500/20 rounded-full blur-[80px] animate-pulse"></div>
                     <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-purple-500/20 rounded-full blur-[80px] animate-pulse delay-1000"></div>
@@ -218,14 +215,12 @@ export const HUD: React.FC = () => {
                     {/* Grid Overlay */}
                     <div className="absolute inset-0 bg-[linear-gradient(transparent_95%,rgba(0,255,255,0.1)_100%),linear-gradient(90deg,transparent_95%,rgba(0,255,255,0.1)_100%)] bg-[length:40px_40px] [transform:perspective(500px)_rotateX(60deg)] origin-bottom opacity-40 pointer-events-none"></div>
 
-                    {/* Main Visual - Image Logo */}
-                    {/* Removed vertical padding to pull logo up */}
-                    <div className="relative z-10 flex flex-col items-center px-6 w-full">
-                        <img 
-                            src={LOGO_URL} 
-                            alt="Myco Runner" 
-                            className="w-full max-w-[260px] md:max-w-[300px] object-contain drop-shadow-[0_0_25px_rgba(0,255,255,0.6)] animate-pulse" 
-                        />
+                    {/* Main Visual - Icon & Title Restored */}
+                    <div className="relative z-10 flex flex-col items-center px-6 w-full mt-2">
+                        <MushroomIcon className="w-20 h-20 md:w-24 md:h-24 text-cyan-400 mb-4 animate-bounce drop-shadow-[0_0_15px_rgba(0,255,255,0.6)]" strokeWidth={1.5} />
+                        <h1 className="text-5xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 mb-2 drop-shadow-[0_0_20px_rgba(0,255,255,0.4)] font-cyber text-center leading-tight tracking-tighter">
+                            MYCO<br/>RUNNER
+                        </h1>
                         {/* Added Maker Text */}
                         <p className="text-cyan-300/60 text-[10px] md:text-xs font-mono mt-2 tracking-[0.2em] uppercase drop-shadow-[0_0_2px_rgba(0,255,255,0.5)]">
                             Made by Spore n' Sprout
@@ -260,11 +255,9 @@ export const HUD: React.FC = () => {
       return (
           <div className="absolute inset-0 bg-black/90 z-[100] text-white pointer-events-auto backdrop-blur-sm overflow-y-auto">
               <div className="flex flex-col items-center justify-center min-h-full py-8 px-4">
-                <img 
-                    src={LOGO_URL} 
-                    alt="Myco Runner" 
-                    className="w-40 md:w-52 object-contain mb-6 drop-shadow-[0_0_15px_rgba(0,255,255,0.4)]" 
-                />
+                {/* Replaced Image Logo with Mushroom Icon */}
+                <MushroomIcon className="w-20 h-20 md:w-24 md:h-24 text-cyan-400 mb-6 animate-bounce drop-shadow-[0_0_15px_rgba(0,255,255,0.6)]" strokeWidth={1.5} />
+                
                 <h1 className="text-4xl md:text-6xl font-black text-white mb-6 drop-shadow-[0_0_10px_rgba(255,0,0,0.8)] font-cyber text-center">GAME OVER</h1>
                 
                 <div className="grid grid-cols-1 gap-3 md:gap-4 text-center mb-8 w-full max-w-md">
@@ -303,12 +296,7 @@ export const HUD: React.FC = () => {
     return (
         <div className="absolute inset-0 bg-gradient-to-b from-purple-900/90 to-black/95 z-[100] text-white pointer-events-auto backdrop-blur-md overflow-y-auto">
             <div className="flex flex-col items-center justify-center min-h-full py-8 px-4">
-                <img 
-                    src={LOGO_URL} 
-                    alt="Myco Runner" 
-                    className="w-40 md:w-52 object-contain mb-8 drop-shadow-[0_0_25px_rgba(255,215,0,0.6)] animate-pulse" 
-                />
-                {/* Updated Icon to Mushroom */}
+                {/* Removed Image Logo, kept existing MushroomIcon which is consistent */}
                 <MushroomIcon 
                     className="w-16 h-16 md:w-24 md:h-24 text-yellow-400 mb-6 animate-bounce drop-shadow-[0_0_15px_rgba(255,215,0,0.6)]" 
                     strokeWidth={1.5}

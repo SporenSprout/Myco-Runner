@@ -1,9 +1,10 @@
-
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
 */
 
+
+import React from 'react';
 
 export enum GameStatus {
   MENU = 'MENU',
@@ -67,4 +68,14 @@ export interface ShopItem {
     cost: number;
     icon: any; // Lucide icon component
     oneTime?: boolean; // If true, remove from pool after buying
+}
+
+// Type augmentation for React Three Fiber intrinsic elements
+// This fixes TS errors where <mesh>, <group>, etc. are not recognized on JSX.IntrinsicElements
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      [elemName: string]: any;
+    }
+  }
 }

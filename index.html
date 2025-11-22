@@ -4,10 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Myco Runner</title>
+    
+    <!-- Logo Favicon -->
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/SporenSprout/Myco-Runner/main/35495E8D-93A1-4E69-930C-97F7279C64B4.PNG" />
+    
+    <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+    
+    <!-- Base Styles -->
     <style>
       body {
         margin: 0;
@@ -15,39 +24,32 @@
         overflow: hidden;
         background-color: #050011;
         font-family: 'Rajdhani', sans-serif;
-        touch-action: none;
+        touch-action: none; /* Prevent pull-to-refresh on mobile */
       }
       .font-cyber {
         font-family: 'Orbitron', sans-serif;
       }
     </style>
-
-    <script type="importmap">
-    {
-      "imports": {
-        "react/": "https://aistudiocdn.com/react@^19.2.0/",
-        "react": "https://aistudiocdn.com/react@^19.2.0",
-        "lucide-react": "https://aistudiocdn.com/lucide-react@^0.553.0",
-        "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
-        "@react-three/postprocessing": "https://aistudiocdn.com/@react-three/postprocessing@^3.0.4",
-        "@react-three/fiber": "https://aistudiocdn.com/@react-three/fiber@^9.4.0",
-        "zustand": "https://aistudiocdn.com/zustand@^5.0.8",
-        "uuid": "https://aistudiocdn.com/uuid@^13.0.0",
-        "@react-three/drei": "https://aistudiocdn.com/@react-three/drei@^10.7.7",
-        "three": "https://aistudiocdn.com/three@^0.181.1",
-        "postprocessing": "https://aistudiocdn.com/postprocessing@^6.38.0"
-      }
-    }
-    </script>
-
-  </head>
-
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "@react-three/fiber": "https://aistudiocdn.com/@react-three/fiber@^9.4.0",
+    "three": "https://aistudiocdn.com/three@^0.181.2",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.554.0",
+    "@react-three/postprocessing": "https://aistudiocdn.com/@react-three/postprocessing@^3.0.4",
+    "postprocessing": "https://aistudiocdn.com/postprocessing@^6.38.0",
+    "@react-three/drei": "https://aistudiocdn.com/@react-three/drei@^10.7.7",
+    "uuid": "https://aistudiocdn.com/uuid@^13.0.0",
+    "zustand": "https://aistudiocdn.com/zustand@^5.0.8"
+  }
+}
+</script>
+</head>
   <body>
     <div id="root"></div>
-
-    <!-- THIS IS THE MISSING PIECE!! -->
-    <script type="module" src="/Myco-Runner/index.tsx"></script>
-
+    <script type="module" src="/main.tsx"></script>
   </body>
 </html>
-
