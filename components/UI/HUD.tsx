@@ -1,4 +1,5 @@
 
+
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -10,6 +11,8 @@ import { Heart, Zap, Trophy, MapPin, Rocket, ArrowUpCircle, Shield, Activity, Pl
 import { useStore } from '../../store';
 import { GameStatus, WORD_COLORS, ShopItem, RUN_SPEED_BASE, TARGET_WORD } from '../../types';
 import { audio } from '../System/Audio';
+
+const LOGO_URL = "https://raw.githubusercontent.com/SporenSprout/Myco-Runner/main/35495E8D-93A1-4E69-930C-97F7279C64B4.PNG";
 
 // Custom Mushroom Icon (SVG) to ensure availability
 const MushroomIcon = ({ className, strokeWidth = 2, ...props }: any) => (
@@ -29,6 +32,19 @@ const MushroomIcon = ({ className, strokeWidth = 2, ...props }: any) => (
         <path d="M10 13v6.6a2 2 0 0 0 2 2h.8a2 2 0 0 0 2-2V13" />
         <path d="M12.4 3.4a6 6 0 0 1 5.6 6.6C17.6 12.2 15 13 12 13s-5.6-.8-6-3a6 6 0 0 1 5.6-6.6Z" />
     </svg>
+);
+
+// Donate Button Component
+const DonateButton: React.FC = () => (
+    <a 
+        href="https://www.paypal.com/ncp/payment/78P8LSAHNK7WN" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        className="mt-6 group relative px-8 py-2 bg-gradient-to-r from-pink-950/60 to-purple-950/60 border border-pink-500/60 text-pink-100 font-bold text-sm md:text-base rounded-full hover:scale-105 transition-all duration-300 shadow-[0_0_15px_rgba(236,72,153,0.3)] hover:shadow-[0_0_30px_rgba(236,72,153,0.6)] flex items-center justify-center backdrop-blur-sm"
+    >
+        <span className="relative z-10 drop-shadow-[0_0_5px_rgba(236,72,153,1)]">Donate ❤️</span>
+        <div className="absolute inset-0 rounded-full bg-pink-500/10 blur-md animate-pulse"></div>
+    </a>
 );
 
 // Available Shop Items
@@ -100,7 +116,7 @@ const ShopScreen: React.FC = () => {
 
         // 2. Show ALL valid items (Removed random slicing logic)
         setItems(validItems);
-    }, []);
+    }, [hasDoubleJump, hasImmortality, hasMagneticField]);
 
     return (
         <div className="absolute inset-0 bg-black/90 z-[100] text-white pointer-events-auto backdrop-blur-md overflow-y-auto">
@@ -193,7 +209,8 @@ export const HUD: React.FC = () => {
               <div className="relative w-full max-w-md rounded-3xl overflow-hidden shadow-[0_0_50px_rgba(0,255,255,0.2)] border border-white/10 animate-in zoom-in-95 duration-500">
                 
                 {/* Custom Myco Runner Visual */}
-                <div className="relative w-full aspect-[4/5] bg-gradient-to-b from-indigo-950 via-purple-950 to-black flex flex-col items-center justify-center overflow-hidden">
+                {/* Reduced top padding here to move logo higher */}
+                <div className="relative w-full aspect-[4/5] bg-gradient-to-b from-indigo-950 via-purple-950 to-black flex flex-col items-center justify-start pt-4 md:pt-8 overflow-hidden">
                     {/* Ambient Glows */}
                     <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-cyan-500/20 rounded-full blur-[80px] animate-pulse"></div>
                     <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-purple-500/20 rounded-full blur-[80px] animate-pulse delay-1000"></div>
@@ -201,22 +218,22 @@ export const HUD: React.FC = () => {
                     {/* Grid Overlay */}
                     <div className="absolute inset-0 bg-[linear-gradient(transparent_95%,rgba(0,255,255,0.1)_100%),linear-gradient(90deg,transparent_95%,rgba(0,255,255,0.1)_100%)] bg-[length:40px_40px] [transform:perspective(500px)_rotateX(60deg)] origin-bottom opacity-40 pointer-events-none"></div>
 
-                    {/* Main Visual - Centered perfectly */}
-                    <div className="relative z-10 flex flex-col items-center transform -translate-y-6">
-                        <div className="relative mb-6">
-                             <MushroomIcon className="w-36 h-36 md:w-44 md:h-44 text-cyan-400 drop-shadow-[0_0_40px_rgba(0,255,255,0.8)] animate-pulse" strokeWidth={1.2} />
-                             <div className="absolute inset-0 bg-cyan-400/20 blur-3xl rounded-full -z-10 scale-75"></div>
-                        </div>
-                        <h1 className="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-purple-300 to-pink-300 font-cyber tracking-tighter drop-shadow-[0_0_25px_rgba(255,0,255,0.4)] text-center leading-none">
-                            MYCO<br/>RUNNER
-                        </h1>
-                         <div className="text-cyan-400/80 text-xs md:text-sm font-mono mt-6 tracking-[0.3em] border-y border-cyan-400/30 py-2 px-4 uppercase bg-black/30 backdrop-blur-sm">
-                            Synthwave Spore Hunt
-                        </div>
+                    {/* Main Visual - Image Logo */}
+                    {/* Removed vertical padding to pull logo up */}
+                    <div className="relative z-10 flex flex-col items-center px-6 w-full">
+                        <img 
+                            src={LOGO_URL} 
+                            alt="Myco Runner" 
+                            className="w-full max-w-[260px] md:max-w-[300px] object-contain drop-shadow-[0_0_25px_rgba(0,255,255,0.6)] animate-pulse" 
+                        />
+                        {/* Added Maker Text */}
+                        <p className="text-cyan-300/60 text-[10px] md:text-xs font-mono mt-2 tracking-[0.2em] uppercase drop-shadow-[0_0_2px_rgba(0,255,255,0.5)]">
+                            Made by Spore n' Sprout
+                        </p>
                     </div>
                     
                     {/* Start Button Area */}
-                    <div className="absolute bottom-0 inset-x-0 p-6 pb-10 z-20 bg-gradient-to-t from-black via-black/90 to-transparent pt-24">
+                    <div className="absolute bottom-0 inset-x-0 p-6 pb-8 z-20 bg-gradient-to-t from-black via-black/90 to-transparent pt-24 flex flex-col items-center">
                         <button 
                           onClick={() => { audio.init(); startGame(); }}
                           className="w-full group relative px-6 py-4 bg-white/5 backdrop-blur-md border border-white/10 text-white font-black text-xl rounded-xl hover:bg-white/10 transition-all shadow-[0_0_20px_rgba(0,255,255,0.1)] hover:shadow-[0_0_30px_rgba(0,255,255,0.3)] hover:border-cyan-400/50 overflow-hidden"
@@ -227,9 +244,11 @@ export const HUD: React.FC = () => {
                             </span>
                         </button>
 
-                        <p className="text-cyan-400/40 text-[10px] md:text-xs font-mono mt-4 tracking-widest text-center">
+                        <p className="text-cyan-400/40 text-[10px] md:text-xs font-mono mt-4 tracking-widest text-center mb-2">
                             [ ARROWS / SWIPE TO MOVE ]
                         </p>
+
+                        <DonateButton />
                     </div>
                 </div>
               </div>
@@ -241,6 +260,11 @@ export const HUD: React.FC = () => {
       return (
           <div className="absolute inset-0 bg-black/90 z-[100] text-white pointer-events-auto backdrop-blur-sm overflow-y-auto">
               <div className="flex flex-col items-center justify-center min-h-full py-8 px-4">
+                <img 
+                    src={LOGO_URL} 
+                    alt="Myco Runner" 
+                    className="w-40 md:w-52 object-contain mb-6 drop-shadow-[0_0_15px_rgba(0,255,255,0.4)]" 
+                />
                 <h1 className="text-4xl md:text-6xl font-black text-white mb-6 drop-shadow-[0_0_10px_rgba(255,0,0,0.8)] font-cyber text-center">GAME OVER</h1>
                 
                 <div className="grid grid-cols-1 gap-3 md:gap-4 text-center mb-8 w-full max-w-md">
@@ -268,6 +292,8 @@ export const HUD: React.FC = () => {
                 >
                     RUN AGAIN
                 </button>
+
+                <DonateButton />
               </div>
           </div>
       );
@@ -277,9 +303,14 @@ export const HUD: React.FC = () => {
     return (
         <div className="absolute inset-0 bg-gradient-to-b from-purple-900/90 to-black/95 z-[100] text-white pointer-events-auto backdrop-blur-md overflow-y-auto">
             <div className="flex flex-col items-center justify-center min-h-full py-8 px-4">
+                <img 
+                    src={LOGO_URL} 
+                    alt="Myco Runner" 
+                    className="w-40 md:w-52 object-contain mb-8 drop-shadow-[0_0_25px_rgba(255,215,0,0.6)] animate-pulse" 
+                />
                 {/* Updated Icon to Mushroom */}
                 <MushroomIcon 
-                    className="w-20 h-20 md:w-32 md:h-32 text-yellow-400 mb-6 animate-bounce drop-shadow-[0_0_15px_rgba(255,215,0,0.6)]" 
+                    className="w-16 h-16 md:w-24 md:h-24 text-yellow-400 mb-6 animate-bounce drop-shadow-[0_0_15px_rgba(255,215,0,0.6)]" 
                     strokeWidth={1.5}
                 />
                 <h1 className="text-3xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-orange-500 to-pink-500 mb-2 drop-shadow-[0_0_20px_rgba(255,165,0,0.6)] font-cyber text-center leading-tight">
@@ -312,6 +343,8 @@ export const HUD: React.FC = () => {
                 >
                     RESTART MISSION
                 </button>
+
+                <DonateButton />
             </div>
         </div>
     );
