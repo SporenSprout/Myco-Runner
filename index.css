@@ -1,22 +1,43 @@
-/* Fix mobile Safari/Chrome address bar overlap */
-
+/* Fix mobile Safari/Chrome safe area issues */
 :root {
+  --safe-top: env(safe-area-inset-top, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
 }
 
+/* Reset + prevent double scroll issues */
 html,
 body,
 #root {
   margin: 0;
   padding: 0;
   height: 100%;
+  width: 100%;
+  overflow: hidden; /* Important for iOS Safari */
+  touch-action: none;
 }
 
-/* Main container so UI never hides under the mobile address bar */
+/* Ensures the entire app respects safe areas */
 .app-root {
   min-height: 100dvh; /* dynamic viewport height – fixes iOS Safari */
+  width: 100%;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+
+  /* Apply safe-area padding globally */
+  padding-top: var(--safe-top);
   padding-bottom: calc(var(--safe-bottom) + 16px);
+  padding-left: var(--safe-left);
+  padding-right: var(--safe-right);
 }
+
+/* Optional: makes the game canvas scale cleanly */
+canvas {
+  display: block;
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
