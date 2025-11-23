@@ -292,8 +292,6 @@ export const HUD: React.FC = () => {
               <div className="text-xl md:text-3xl font-bold font-cyber">{level} / 10</div>
             </div>
 
-            <div className="bg-gray-900/80 p-3 md:p
-
             <div className="bg-gray-900/80 p-3 md:p-4 rounded-lg border border-gray-700 flex items-center justify-between">
               <div className="text-sm md:text-base text-cyan-400 flex items-center">
                 <MushroomIcon className="mr-2 w-4 h-4" /> SPORES
