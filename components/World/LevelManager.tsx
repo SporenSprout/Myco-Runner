@@ -201,48 +201,46 @@ export const LevelManager: React.FC = () => {
 
   // Handle resets and transitions
   useEffect(() => {
-    const isRestart = status === GameStatus.PLAYING && prevStatus.current === GameStatus.GAME_OVER;
-    const isMenuReset = status === GameStatus.MENU;
-    const isLevelUp = level !== prevLevel.current && status === GameStatus.PLAYING;
-    const isVictoryReset = status === GameStatus.PLAYING && prevStatus.current === GameStatus.VICTORY;
+  const isRestart = status === GameStatus.PLAYING && prevStatus.current === GameStatus.GAME_OVER;
+  const isMenuReset = status === GameStatus.MENU;
+  const isLevelUp = level !== prevLevel.current && status === GameStatus.PLAYING;
+  const isVictoryReset = status === GameStatus.PLAYING && prevStatus.current === GameStatus.VICTORY;
 
-    if (isMenuReset || isRestart || isVictoryReset) {
-        // Hard Reset of objects
-        objectsRef.current = [];
-        setRenderTrigger(t => t + 1);
-        
-        // Reset trackers
-        distanceTraveled.current = 0;
-        nextLetterDistance.current = getLetterInterval(1);
-        gemSequenceRemaining.current = 0;
-        safeSpawnUntil.current = Date.now() + 3000; // Safe zone for start
+  if (isMenuReset || isRestart || isVictoryReset) {
+    // Hard Reset of objects
+    objectsRef.current = [];
+    setRenderTrigger(t => t + 1);
 
-    } else if (isLevelUp && level > 1) {
-        // Soft Reset for Level Up (Transition to new Lane Count)
-        // CRITICAL: Clear ALL objects because the lane grid has changed (e.g., 3 lanes to 4 lanes).
-        objectsRef.current = [];
+    // Reset trackers
+    distanceTraveled.current = 0;
+    nextLetterDistance.current = getLetterInterval(1);
+    gemSequenceRemaining.current = 0;
+    safeSpawnUntil.current = Date.now() + 3000;
+  } else if (isLevelUp && level > 1) {
+    // Soft Reset for Level Up
+    objectsRef.current = [];
 
-        // Spawn Shop Portal further out
-        objectsRef.current.push({
-            id: uuidv4(),
-            type: ObjectType.SHOP_PORTAL,
-            position: [0, 0, -100], 
-            active: true,
-        });
-        
-        nextLetterDistance.current = distanceTraveled.current - SPAWN_DISTANCE + getLetterInterval(level);
-        gemSequenceRemaining.current = 0;
-        safeSpawnUntil.current = Date.now() + 3000; // Safe zone for level transition
-        
-        setRenderTrigger(t => t + 1);
-        
-    } else if (status === GameStatus.GAME_OVER || status === GameStatus.VICTORY) {
-        setDistance(Math.floor(distanceTraveled.current));
-    }
-    
-    prevStatus.current = status;
-    prevLevel.current = level;
-  }, [status, level, setDistance]);
+    // Push new shop portal to give visual feedback and interaction target
+    objectsRef.current.push({
+      id: uuidv4(),
+      type: ObjectType.SHOP_PORTAL,
+      position: [0, 0, -100],
+      active: true,
+    });
+
+    // Reset distance triggers and safe zone
+    nextLetterDistance.current = distanceTraveled.current - SPAWN_DISTANCE + getLetterInterval(level);
+    gemSequenceRemaining.current = 0;
+    safeSpawnUntil.current = Date.now() + 3000;
+    setRenderTrigger(t => t + 1);
+  } else if (status === GameStatus.GAME_OVER || status === GameStatus.VICTORY) {
+    setDistance(Math.floor(distanceTraveled.current));
+  }
+
+  prevStatus.current = status;
+  prevLevel.current = level;
+}, [status, level, setDistance]);
+
 
   useFrame((state) => {
       if (!playerObjRef.current) {
