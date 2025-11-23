@@ -2,7 +2,7 @@
  * @license
  * SPDX-License-Identifier: Apache-2.0
 */
-
+import { Play } from 'lucide-react';
 import React, { useState, useEffect } from 'react';
 import { Heart, Zap, Trophy, MapPin, Rocket, ArrowUpCircle, Shield, Activity, PlusCircle, Share2, Magnet } from 'lucide-react';
 import { useStore } from '../../store';
